@@ -13,7 +13,8 @@ DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 # run docker clean up at start if pre-cleanup is enabled
 if [[ "$(plugin_read_config PRE_CLEANUP "false")" == "true" ]]; then
   echo "~~~ :docker: Pre-cleaning docker-compose" >&2
-  compose_cleanup
+  docker rm -f `docker ps -aq`
+  docker volume prune -f
 fi
 
 # skip checkout if skip-checkout is set
