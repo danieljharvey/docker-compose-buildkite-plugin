@@ -3,10 +3,18 @@ set -ueo pipefail
 
 DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 
+# shellcheck source=lib/run.bash
+. "$DIR/../lib/run.bash"
 # shellcheck source=lib/shared.bash
 . "$DIR/../lib/shared.bash"
 # shellcheck source=lib/metadata.bash
 . "$DIR/../lib/metadata.bash"
+
+# run docker clean up at start if pre-cleanup is enabled
+if [[ "$(plugin_read_config PRE_CLEANUP "false")" == "true" ]]; then
+  echo "~~~ :docker: Pre-cleaning docker-compose" >&2
+  compose_cleanup
+fi
 
 # skip checkout if skip-checkout is set
 if [[ "$(plugin_read_config SKIP_CHECKOUT "false")" == "true" ]] ; then
