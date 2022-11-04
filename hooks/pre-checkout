@@ -13,12 +13,12 @@ DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 # run docker clean up at start if pre-cleanup is enabled
 if [[ "$(plugin_read_config PRE_CLEANUP "false")" == "true" ]]; then
   echo "~~~ :docker: Pre-cleaning docker-compose" >&2
-  FOUND_IMAGES=$(docker ps -aq)
-  if [[ -z "$FOUND_IMAGES" ]]; then
-    echo "No Docker images found to delete"
+  FOUND_CONTAINERS=$(docker ps -aq)
+  if [[ -z "$FOUND_CONTAINERS" ]]; then
+    echo "No Docker containers found to delete"
   else
-    echo "Removing Docker images:"
-    docker rm -f `echo $FOUND_IMAGES`
+    echo "Removing Docker containers:"
+    docker rm -f `echo $FOUND_CONTAINERS`
   fi
   docker volume prune -f
 fi
