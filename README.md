@@ -614,6 +614,12 @@ The default is `on-error`.
 
 If set to `2`, plugin will use `docker compose` to execute commands; otherwise it will default to version `1` using `docker-compose` instead.
 
+### `pre-cleanup` (optional, run only)
+
+If set to true, remove all docker containers and volumes before starting.
+
+The default is `false`.
+
 ## Developing
 
 To run the tests:

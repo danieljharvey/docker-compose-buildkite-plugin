@@ -63,6 +63,8 @@ configuration:
       type: [ boolean, string ]
     no-cache:
       type: boolean
+    pre-cleanup:
+      type: boolean
     propagate-environment:
       type: boolean
     propagate-uid-gid:
