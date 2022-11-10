@@ -13,13 +13,13 @@ DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 # run docker clean up at start if pre-cleanup is enabled
 if [[ "$(plugin_read_config PRE_CLEANUP "false")" == "true" ]]; then
   echo "~~~ :docker: Pre-cleaning docker-compose" >&2
-  FOUND_PROJECTS=$(docker-compose ls -q)
+  FOUND_PROJECTS=$(run_docker_compose ls -q)
   if [[ -z "$FOUND_PROJECTS" ]]; then
     echo "No Docker Compose projects found to delete"
   else
     echo "Removing Docker Compose projects:"
     for str in ${FOUND_PROJECTS//;/ } ; do
-       docker-compose -p "$str" down
+       run_docker_compose -p "$str" down
     done
   fi
 fi
